@@ -55,10 +55,14 @@ function merge_and_resolve()
 
 
 function initialise() {
+
+    local demo_dir="demo.dir"
+    mkdir -p $demo_dir
+    pushd $demo_dir > /dev/null 2>&1
+
     rm -rf .git
     git init
     cat <<EOF > .gitignore
-test.sh
 commits.txt
 EOF
     git add .gitignore
