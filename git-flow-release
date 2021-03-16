@@ -97,6 +97,11 @@ _finish_from_develop() {
 		fi
 	fi
 
+    ## <DF> Abort if master is ahead of release branch.
+    ahead_of_master=$(git rev-list --left-only --count $MASTER_BRANCH...@)
+    [ $ahead_of_master -eq 0 ] || die "Branch $MASTER_BRANCH is ahead by $ahead_of_master commits and requires merging first."
+    ## </DF>
+
 	run_pre_hook "$VERSION_PREFIX$TAGNAME" "$ORIGIN" "$BRANCH"
 
 	# Try to merge into master.
